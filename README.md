@@ -32,6 +32,17 @@ Comprehensive best practices for Apache Doris covering schema design, query opti
 | **Data Ingestion** | `ingest-` | Stream Load, Broker Load, Routine Load, Group Commit |
 | **Operations** | `ops-` | Compaction, tablet management, replica strategies |
 
+### Doris Create Table Optimization
+
+A systematic methodology for optimizing Apache Doris CREATE TABLE statements, derived from real-world POC experience. Guides you through workload analysis, partition/bucket strategy selection, and property tuning. Rules are organized into four categories:
+
+| Category | Prefix | Focus Areas |
+|----------|--------|-------------|
+| **Workload Analysis** | `workload-` | Table profiling, filter/JOIN extraction, selectivity evaluation, 80/20 prioritization |
+| **Partitioning** | `partition-` | Filter-driven strategy selection, List partitioning on low-NDV columns |
+| **Bucketing** | `bucket-` | JOIN key alignment, tablet size calculation (1-5 GB), BE node balance |
+| **Properties** | `property-` | Inverted indexes, NOT NULL constraints, Random bucketing for writes |
+
 ## Supported Agents
 
 This skill package works with any AI coding assistant that supports the agentskills.io specification, including:

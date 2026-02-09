@@ -2,7 +2,7 @@
 title: "Calculate Bucket Count Using Tablet Size Targets"
 impact: CRITICAL
 impactDescription: "Incorrect bucket count leads to either too-large tablets (slow scans, poor concurrency) or too-small tablets (excessive metadata overhead, small file problem)"
-tags: [sizing, bucket, tablet-size, compression-ratio]
+tags: [bucket, tablet-size, compression-ratio, sizing]
 ---
 
 # Calculate Bucket Count Using Tablet Size Targets

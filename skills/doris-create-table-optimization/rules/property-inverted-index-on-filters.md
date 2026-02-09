@@ -2,7 +2,7 @@
 title: "Add Inverted Indexes on Filtered Columns"
 impact: HIGH
 impactDescription: "Inverted indexes on frequently filtered columns enable index-based data skipping, significantly reducing the amount of data read from disk for selective queries"
-tags: [prop, index, inverted-index, filter-column]
+tags: [property, index, inverted-index, filter-column]
 ---
 
 # Add Inverted Indexes on Filtered Columns

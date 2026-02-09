@@ -2,7 +2,7 @@
 title: "Extract JOIN Keys for Bucket Key Selection"
 impact: HIGH
 impactDescription: "Aligning bucket keys with JOIN keys enables colocate join and bucket shuffle join, avoiding expensive data shuffle during query execution"
-tags: [filter, join-key, bucket-key, colocate]
+tags: [bucket, join-key, bucket-key, colocate]
 ---
 
 # Extract JOIN Keys for Bucket Key Selection

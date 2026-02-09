@@ -2,7 +2,7 @@
 title: "Set NOT NULL on Columns Without Null Values"
 impact: MEDIUM
 impactDescription: "NOT NULL constraints enable Doris to skip null-checking logic and use more compact storage, providing modest but consistent performance improvements"
-tags: [prop, null, schema, data-types]
+tags: [property, null, schema, data-types]
 ---
 
 # Set NOT NULL on Columns Without Null Values

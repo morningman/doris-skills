@@ -2,7 +2,7 @@
 title: "Use Low-NDV High-Selectivity Columns as List Partition Keys"
 impact: CRITICAL
 impactDescription: "Choosing list partition keys based on filter selectivity and NDV enables partition pruning that can eliminate the majority of data reads, providing order-of-magnitude performance gains"
-tags: [filter, selectivity, ndv, list-partition]
+tags: [partition, selectivity, ndv, list-partition]
 ---
 
 # Use Low-NDV High-Selectivity Columns as List Partition Keys

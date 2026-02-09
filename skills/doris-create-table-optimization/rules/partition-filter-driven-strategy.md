@@ -2,7 +2,7 @@
 title: "Choose Partition Strategy Based on Filter Analysis, Not Convention"
 impact: CRITICAL
 impactDescription: "Choosing the wrong partition strategy (e.g., Range by date when data only spans 2 months) provides zero pruning benefit and wastes the single most powerful optimization lever available"
-tags: [sizing, partition, list-partition, range-partition, filter-driven]
+tags: [partition, list-partition, range-partition, filter-driven]
 ---
 
 # Choose Partition Strategy Based on Filter Analysis, Not Convention

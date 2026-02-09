@@ -2,7 +2,7 @@
 title: "Align Tablet Count with BE Node Count for Even Distribution"
 impact: HIGH
 impactDescription: "Uneven tablet distribution across BE nodes causes data skew, where some nodes process more data than others, leading to stragglers that slow down overall query response time"
-tags: [sizing, balance, be-nodes, tablet-count, data-skew]
+tags: [bucket, balance, be-nodes, tablet-count, data-skew]
 ---
 
 # Align Tablet Count with BE Node Count for Even Distribution

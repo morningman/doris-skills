@@ -2,7 +2,7 @@
 title: "Use Random Bucketing for Write-Only Tables"
 impact: HIGH
 impactDescription: "Random bucketing provides the best write throughput for tables that are only used for data ingestion (e.g., INSERT INTO performance tests in POC), avoiding hash computation overhead"
-tags: [prop, write, random-bucket, ingestion, poc]
+tags: [property, write, random-bucket, ingestion, poc]
 ---
 
 # Use Random Bucketing for Write-Only Tables

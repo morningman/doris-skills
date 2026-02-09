@@ -14,7 +14,7 @@ metadata:
 When optimizing Apache Doris table structures for query performance:
 
 1. **Check rules first** — Search the `rules/` directory for applicable optimization rules before giving general advice.
-2. **Cite rule names** — When a rule applies, reference it by name (e.g., `analyze-data-profile-tables`).
+2. **Cite rule names** — When a rule applies, reference it by name (e.g., `workload-profile-table-volumes`).
 3. **Fall back to general knowledge** — If no specific rule exists, use general Doris expertise.
 4. **Search documentation** — For the latest features, consult [Apache Doris docs](https://doris.apache.org/docs).
 
@@ -24,83 +24,80 @@ Table structure is the foundation of database performance. A well-optimized tabl
 
 ## Optimization Flow
 
-### Step 1: Data Profiling (`analyze-`)
+### Step 1: Workload Analysis (`workload-`)
 
-Before making any schema decisions, profile the data:
+Before making any schema decisions, profile the data and analyze SQL workloads:
 
-1. Catalog all tables with row counts and data sizes (`analyze-data-*` rules)
-2. Identify the top 20% of tables by data volume — these determine query performance (80/20 rule)
-3. Establish a reference table for subsequent optimization decisions
+1. Catalog all tables with row counts and data sizes (`workload-profile-*` rules)
+2. Identify the top 20% of tables by data volume — these determine query performance (`workload-prioritize-*` rules)
+3. Extract WHERE clause filters and JOIN keys, evaluate selectivity (`workload-extract-*` rules)
 
-### Step 2: Filter & JOIN Analysis (`filter-`)
+### Step 2: Partitioning (`partition-`)
 
-Analyze SQL workloads to identify optimization opportunities:
+Choose the right partition strategy based on workload analysis:
 
-1. Extract WHERE clause filter conditions from all queries (`filter-condition-*` rules)
-2. Extract JOIN keys from all queries (`filter-join-*` rules)
-3. Evaluate filter selectivity — determine which conditions prune the most data
-4. Prioritize columns with best selectivity for partitioning and indexing
+1. Determine partition strategy based on actual filter patterns, not convention (`partition-filter-*` rules)
+2. Use List partitioning on low-NDV high-selectivity columns (`partition-list-*` rules)
 
-### Step 3: Partition & Bucket Sizing (`sizing-`)
+### Step 3: Bucketing (`bucket-`)
 
-Calculate optimal partition and bucket configuration:
+Calculate optimal bucket configuration:
 
-1. Determine partition strategy based on filter analysis (`sizing-partition-*` rules)
-2. Calculate bucket count based on tablet size targets (`sizing-bucket-*` rules)
-3. Ensure tablet count is divisible by BE node count for data balance (`sizing-balance-*` rules)
-4. Account for compression ratio (typically 3:1 to 5:1) when estimating sizes
+1. Align bucket keys with JOIN keys for efficient join strategies (`bucket-align-*` rules)
+2. Calculate bucket count based on tablet size targets of 1-5 GB (`bucket-tablet-*` rules)
+3. Ensure tablet count is divisible by BE node count for data balance (`bucket-balance-*` rules)
 
-### Step 4: Index & Properties (`prop-`)
+### Step 4: Properties (`property-`)
 
 Apply final optimizations:
 
-1. Add inverted indexes on filtered columns (`prop-index-*` rules)
-2. Set NOT NULL on columns that never contain null values (`prop-null-*` rules)
-3. Use Random bucketing for write-only tables (`prop-write-*` rules)
+1. Add inverted indexes on filtered columns (`property-inverted-*` rules)
+2. Set NOT NULL on columns that never contain null values (`property-not-null-*` rules)
+3. Use Random bucketing for write-only tables (`property-random-*` rules)
 
 ## Rule Categories and Priority
 
 | Priority | Category | Prefix | Impact | Rule Count |
 |----------|----------|--------|--------|------------|
-| 1 | Data Profiling | `analyze-` | CRITICAL | ~2 rules |
-| 2 | Filter & JOIN Analysis | `filter-` | CRITICAL | ~3 rules |
-| 3 | Partition & Bucket Sizing | `sizing-` | CRITICAL | ~3 rules |
-| 4 | Index & Properties | `prop-` | HIGH | ~3 rules |
+| 1 | Workload Analysis | `workload-` | CRITICAL | ~3 rules |
+| 2 | Partitioning | `partition-` | CRITICAL | ~2 rules |
+| 3 | Bucketing | `bucket-` | CRITICAL | ~3 rules |
+| 4 | Properties | `property-` | HIGH | ~3 rules |
 
 ## Quick Reference
 
 Rules are organized by category. Each rule file is located in `rules/` and named using the pattern `{section}-{subsection}-{descriptive-name}.md`.
 
-### Data Profiling (`analyze-`)
+### Workload Analysis (`workload-`)
 
 | Sub-prefix | Focus |
 |------------|-------|
-| `analyze-data-` | Table row counts, data volume cataloging, identifying large tables |
-| `analyze-priority-` | 80/20 rule for focusing optimization on high-impact tables |
+| `workload-profile-` | Table row counts, data volume cataloging, identifying large tables |
+| `workload-prioritize-` | 80/20 rule for focusing optimization on high-impact tables |
+| `workload-extract-` | Extracting and evaluating WHERE clause filters, JOIN keys, and selectivity |
 
-### Filter & JOIN Analysis (`filter-`)
-
-| Sub-prefix | Focus |
-|------------|-------|
-| `filter-condition-` | Extracting and evaluating WHERE clause filter conditions |
-| `filter-join-` | Extracting JOIN keys for bucket key selection |
-| `filter-selectivity-` | Evaluating filter selectivity and NDV for partition candidates |
-
-### Partition & Bucket Sizing (`sizing-`)
+### Partitioning (`partition-`)
 
 | Sub-prefix | Focus |
 |------------|-------|
-| `sizing-partition-` | List vs Range partition selection based on filter analysis |
-| `sizing-bucket-` | Tablet size targets and bucket count calculation |
-| `sizing-balance-` | BE node data balance and tablet count alignment |
+| `partition-filter-` | Choosing partition strategy based on actual filter patterns |
+| `partition-list-` | Using low-NDV high-selectivity columns as List partition keys |
 
-### Index & Properties (`prop-`)
+### Bucketing (`bucket-`)
 
 | Sub-prefix | Focus |
 |------------|-------|
-| `prop-index-` | Inverted index on filtered columns |
-| `prop-null-` | NOT NULL constraints for columns without null values |
-| `prop-write-` | Random bucketing for write-only / ingestion tables |
+| `bucket-align-` | Aligning bucket keys with JOIN keys for colocate/bucket shuffle join |
+| `bucket-tablet-` | Tablet size targets and bucket count calculation |
+| `bucket-balance-` | BE node data balance and tablet count alignment |
+
+### Properties (`property-`)
+
+| Sub-prefix | Focus |
+|------------|-------|
+| `property-inverted-` | Inverted index on filtered columns |
+| `property-not-null-` | NOT NULL constraints for columns without null values |
+| `property-random-` | Random bucketing for write-only / ingestion tables |
 
 ## Activation Triggers
 

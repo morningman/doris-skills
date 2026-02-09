@@ -18,18 +18,18 @@ This directory contains the **doris-create-table-optimization** skill, a systema
 
 | Prefix | Category | Description |
 |--------|----------|-------------|
-| `analyze-` | Data Profiling | Table cataloging, row counts, data volume, priority identification |
-| `filter-` | Filter & JOIN Analysis | WHERE clause extraction, JOIN key analysis, selectivity evaluation |
-| `sizing-` | Partition & Bucket Sizing | Partition strategy, bucket count calculation, BE node balance |
-| `prop-` | Index & Properties | Inverted indexes, NOT NULL, Random bucketing for writes |
+| `workload-` | Workload Analysis | Table profiling, filter/JOIN extraction, selectivity evaluation |
+| `partition-` | Partitioning | Filter-driven strategy, List partition on low-NDV columns |
+| `bucket-` | Bucketing | JOIN key alignment, tablet size calculation, BE node balance |
+| `property-` | Properties | Inverted indexes, NOT NULL, Random bucketing for writes |
 
 ## Trigger Phrases
 
 Rules should be activated when the agent encounters these patterns:
 
-- **Profiling**: table data volume, row count, large table identification, POC data analysis
-- **Filter Analysis**: WHERE clause optimization, filter selectivity, NDV analysis, JOIN key selection
-- **Sizing**: tablet size, bucket count, partition count, BE balance, compression ratio
+- **Workload**: table data volume, row count, large table identification, POC data analysis, WHERE clause, filter selectivity, NDV, JOIN key
+- **Partitioning**: partition strategy, List partition, Range partition, filter-driven partition, low-NDV column
+- **Bucketing**: tablet size, bucket count, BE balance, compression ratio, JOIN key as bucket key, colocate join
 - **Properties**: inverted index, NOT NULL optimization, Random bucketing, write-only table
 
 ## Adding a New Rule

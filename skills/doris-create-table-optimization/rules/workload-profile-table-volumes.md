@@ -2,7 +2,7 @@
 title: "Profile Tables with Row Counts and Data Volumes"
 impact: CRITICAL
 impactDescription: "Without accurate data profiling, all subsequent partition/bucket/index decisions will be based on guesswork, leading to suboptimal or harmful table structures"
-tags: [analyze, data-profiling, poc, table-catalog]
+tags: [workload, data-profiling, poc, table-catalog]
 ---
 
 # Profile Tables with Row Counts and Data Volumes

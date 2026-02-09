@@ -2,7 +2,7 @@
 title: "Apply 80/20 Rule — Focus on High-Impact Large Tables"
 impact: CRITICAL
 impactDescription: "20% of tables by data volume determine the vast majority of query performance; misallocating optimization effort wastes time and may leave the real bottlenecks unaddressed"
-tags: [analyze, priority, large-tables, pareto]
+tags: [workload, priority, large-tables, pareto]
 ---
 
 # Apply 80/20 Rule — Focus on High-Impact Large Tables

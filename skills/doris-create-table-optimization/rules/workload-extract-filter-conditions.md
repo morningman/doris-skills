@@ -2,7 +2,7 @@
 title: "Extract and Evaluate WHERE Clause Filter Conditions"
 impact: CRITICAL
 impactDescription: "Filter conditions directly determine which columns should be used for partitioning and indexing; incorrect analysis leads to full table scans on large tables"
-tags: [filter, where-clause, selectivity, partition-candidate]
+tags: [workload, where-clause, selectivity, filter-analysis]
 ---
 
 # Extract and Evaluate WHERE Clause Filter Conditions
