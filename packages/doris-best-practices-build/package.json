@@ -1,0 +1,21 @@
+{
+  "name": "@doris-skills/best-practices-build",
+  "version": "0.1.0",
+  "description": "Build tooling for doris-best-practices skill",
+  "private": true,
+  "scripts": {
+    "validate": "ts-node src/validate.ts",
+    "validate-sql": "ts-node src/validate-sql.ts",
+    "check-links": "ts-node src/check-links.ts",
+    "build": "ts-node src/build.ts"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "glob": "^10.3.10"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "ts-node": "^10.9.2",
+    "@types/node": "^20.11.0"
+  }
+}

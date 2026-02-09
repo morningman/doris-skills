@@ -1,0 +1,31 @@
+name: Publish
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    name: Publish Skill Package
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        working-directory: packages/doris-best-practices-build
+        run: npm install
+
+      - name: Build
+        working-directory: packages/doris-best-practices-build
+        run: npm run build
+
+      - name: Verify build output
+        run: |
+          test -f skills/doris-best-practices/AGENTS.md || \
+            (echo "Build did not produce AGENTS.md" && exit 1)

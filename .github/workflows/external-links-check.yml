@@ -1,0 +1,25 @@
+name: External Links Check
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'  # Weekly on Monday at 06:00 UTC
+  workflow_dispatch:
+
+jobs:
+  check-links:
+    name: Check External Links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        working-directory: packages/doris-best-practices-build
+        run: npm install
+
+      - name: Check external links
+        working-directory: packages/doris-best-practices-build
+        run: npm run check-links

@@ -1,0 +1,8 @@
+# Doris Best Practices
+skills/doris-best-practices/ @apache/doris-skills-maintainers
+
+# Build tooling
+packages/ @apache/doris-skills-maintainers
+
+# CI/CD
+.github/ @apache/doris-skills-maintainers

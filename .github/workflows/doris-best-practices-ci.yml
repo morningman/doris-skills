@@ -1,0 +1,60 @@
+name: Doris Best Practices CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'skills/doris-best-practices/**'
+      - 'packages/doris-best-practices-build/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'skills/doris-best-practices/**'
+      - 'packages/doris-best-practices-build/**'
+
+jobs:
+  validate:
+    name: Validate Rules
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        working-directory: packages/doris-best-practices-build
+        run: npm install
+
+      - name: Validate rule structure
+        working-directory: packages/doris-best-practices-build
+        run: npm run validate
+
+      - name: Validate SQL examples
+        working-directory: packages/doris-best-practices-build
+        run: npm run validate-sql
+
+  build:
+    name: Build AGENTS.md
+    runs-on: ubuntu-latest
+    needs: validate
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        working-directory: packages/doris-best-practices-build
+        run: npm install
+
+      - name: Build compiled AGENTS.md
+        working-directory: packages/doris-best-practices-build
+        run: npm run build
+
+      - name: Check for uncommitted changes
+        run: |
+          git diff --exit-code skills/doris-best-practices/AGENTS.md || \
+            (echo "AGENTS.md is out of date. Run 'npm run build' and commit the result." && exit 1)

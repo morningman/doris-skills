@@ -1,0 +1,11 @@
+{
+  "version": "0.1.0",
+  "organization": "Apache Doris Community",
+  "date": "February 2026",
+  "dorisVersion": "2.1+",
+  "abstract": "Comprehensive best practices for Apache Doris covering schema design (table model selection, partitioning, bucketing, data types, indexes), query optimization (JOIN strategies, materialized views, query profiling), data ingestion (Stream Load, Broker Load, Routine Load, Group Commit), and operations (compaction, tablet management, replica strategies).",
+  "references": [
+    "https://doris.apache.org/docs",
+    "https://github.com/apache/doris"
+  ]
+}

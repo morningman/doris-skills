@@ -1,0 +1,13 @@
+{
+  "version": "0.1.0",
+  "organization": "Apache Doris Community",
+  "date": "February 2026",
+  "dorisVersion": "2.1+",
+  "abstract": "A systematic methodology for optimizing Apache Doris CREATE TABLE statements. Covers data profiling, SQL filter/JOIN analysis, partition and bucket sizing with tablet balance, and index/property optimization. Derived from real-world POC experience to help DBAs design high-performance table structures.",
+  "references": [
+    "https://doris.apache.org/docs",
+    "https://doris.apache.org/docs/table-design/data-partitioning/auto-partitioning",
+    "https://doris.apache.org/docs/table-design/index/inverted-index",
+    "https://github.com/apache/doris"
+  ]
+}
